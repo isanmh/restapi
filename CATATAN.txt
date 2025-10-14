@@ -37,9 +37,20 @@ http://localhost:8080/api/welcome
 
 ## tambhakan depedency di pom.xml
 - ctrl +shipt + p :
+- add starter
 - pilih "Add Dependency"
 - cari "devtools"
 
 ## Koneksi databases depedency :
 mysql driver
 jpa 
+pom.xml
+
+## anotasi entity :
+- @Entity
+- @Table(name="nama_table") 
+- @Id
+- @GeneratedValue(strategy = GenerationType.IDENTITY)
+- @Column(name="nama_kolom")
+- Constructor
+- no arg constructor
