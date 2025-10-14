@@ -1,0 +1,45 @@
+Cara install Spring Boot di Windows :
+- Pastikan Java Development Kit (JDK) sudah terinstall di komputer Anda. Anda dapat mengunduh JDK dari situs resmi Oracle atau menggunakan OpenJDK.
+- Unduh dan pasang Apache Maven dari situs resminya. Setelah mengunduh,
+- ekstrak file ZIP dan tambahkan direktori bin Maven ke variabel lingkungan PATH.
+- Buka Command Prompt dan jalankan perintah berikut untuk memeriksa apakah Maven sudah terpasang dengan benar:
+  mvn -version
+## Jalankan maven :
+- mvn spring-boot:run 
+
+## extension vs code yang digunakan :
+- Spring Boot Extension Pack
+- Extension Pack for Java
+- Pretier - Code formatter :
+    - ctrl + , 
+    - search "format"
+    - centang "Format On Save"
+    - default formatter : Pretier - Code formatter
+
+- buka file RestapiAppliacation.java
+- klik kanan di dalam file 
+    - format document (confiure>java)
+- Path Intellisense
+- vscode-icons
+
+SSID : inixindo hitam
+pass : Learning25
+
+- mvn clean install
+
+- Alur Spring boot :
+- entity(model) -> repository -> service -> dto -> controller
+
+## runing aplikasi :
+- Setelah mvn spring-boot:run
+- buka browser
+http://localhost:8080/api/welcome
+
+## tambhakan depedency di pom.xml
+- ctrl +shipt + p :
+- pilih "Add Dependency"
+- cari "devtools"
+
+## Koneksi databases depedency :
+mysql driver
+jpa 
