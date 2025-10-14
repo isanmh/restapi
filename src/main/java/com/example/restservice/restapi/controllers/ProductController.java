@@ -1,6 +1,8 @@
 package com.example.restservice.restapi.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.restservice.restapi.dto.ResponseData;
 import com.example.restservice.restapi.entities.Product;
 import com.example.restservice.restapi.services.ProductService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/products")
@@ -22,8 +27,25 @@ public class ProductController {
 
     // add product
     @PostMapping
-    public Product addProduct(@RequestBody Product product) {
-        return productService.save(product);
+    public ResponseEntity<ResponseData<Product>> addProduct(@Valid @RequestBody Product product, Errors errors) {
+
+        ResponseData<Product> responseData = new ResponseData<>();
+
+        // jika ada error
+        if (errors.hasErrors()) {
+            for (var error : errors.getAllErrors()) {
+                responseData.getMessages().add(error.getDefaultMessage());
+            }
+            responseData.setStatus(false);
+            responseData.setData(null);
+            return ResponseEntity.badRequest().body(responseData);
+        }
+
+        responseData.setStatus(true);
+        responseData.getMessages().add("Product created successfully");
+        responseData.setData(productService.save(product));
+
+        return ResponseEntity.status(201).body(responseData);
     }
 
     // get all products
@@ -46,9 +68,27 @@ public class ProductController {
 
     // update
     @PutMapping("/{id}")
-    public Product update(@PathVariable("id") Long id, @RequestBody Product product) {
+    public ResponseEntity<ResponseData<Product>> updateProduct(@PathVariable("id") Long id,
+            @Valid @RequestBody Product product, Errors errors) {
+
+        ResponseData<Product> responseData = new ResponseData<>();
+
+        // jika ada error
+        if (errors.hasErrors()) {
+            for (var error : errors.getAllErrors()) {
+                responseData.getMessages().add(error.getDefaultMessage());
+            }
+            responseData.setStatus(false);
+            responseData.setData(null);
+            return ResponseEntity.badRequest().body(responseData);
+        }
+
         product.setId(id);
-        return productService.save(product);
+        responseData.setStatus(true);
+        responseData.getMessages().add("Product updated successfully");
+        responseData.setData(productService.save(product));
+
+        return ResponseEntity.status(200).body(responseData);
     }
 
 }
