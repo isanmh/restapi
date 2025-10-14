@@ -35,4 +35,8 @@ public class ProductService {
         return productRepo.findAll();
     }
 
+    public void removeOne(Long id) {
+        productRepo.deleteById(id);
+    }
+
 }
