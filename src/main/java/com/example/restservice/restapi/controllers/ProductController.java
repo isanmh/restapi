@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.restservice.restapi.dto.ResponseData;
 import com.example.restservice.restapi.entities.Product;
+import com.example.restservice.restapi.entities.Supplier;
 import com.example.restservice.restapi.services.ProductService;
 
 import jakarta.validation.Valid;
@@ -50,8 +51,12 @@ public class ProductController {
 
     // get all products
     @GetMapping
-    public Iterable<Product> findAll() {
-        return productService.findAll();
+    public ResponseEntity<ResponseData<Iterable<Product>>> findAll() {
+        ResponseData<Iterable<Product>> responseData = new ResponseData<>();
+        responseData.setStatus(true);
+        responseData.getMessages().add("List of products");
+        responseData.setData(productService.findAll());
+        return ResponseEntity.ok(responseData);
     }
 
     // get product by id
@@ -91,6 +96,16 @@ public class ProductController {
         return ResponseEntity.status(200).body(responseData);
     }
 
-    // add supplier to product
+    // end point add supplier to product
+    @PostMapping("/{id}/suppliers")
+    public ResponseEntity<ResponseData<Product>> addSupplier(@PathVariable("id") Long productId,
+            @RequestBody Supplier supplier) {
 
+        productService.addSupplier(supplier, productId);
+        ResponseData<Product> responseData = new ResponseData<>();
+        responseData.setStatus(true);
+        responseData.getMessages().add("Supplier added to product successfully");
+        responseData.setData(productService.findOne(productId));
+        return ResponseEntity.ok(responseData);
+    }
 }

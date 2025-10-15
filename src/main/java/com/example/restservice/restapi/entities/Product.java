@@ -1,7 +1,12 @@
 package com.example.restservice.restapi.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,6 +28,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "products")
+// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+// property = "id")
 public class Product implements Serializable {
 
     @Id
@@ -45,8 +52,10 @@ public class Product implements Serializable {
 
     // Relasi dengan Supplier (Many-to-Many)
     @ManyToMany
-    // untuk membuat table view relasi many to many
+    // @JsonManagedReference
+    // untuk membuat table perantara relasi many to many
     @JoinTable(name = "product_suppliers", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "supplier_id"))
-    private Set<Supplier> suppliers;
+    // private Set<Supplier> suppliers;
+    private List<Supplier> suppliers;
 
 }

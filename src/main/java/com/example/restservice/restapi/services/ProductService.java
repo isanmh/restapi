@@ -40,12 +40,11 @@ public class ProductService {
         productRepo.deleteById(id);
     }
 
-    // add supplier to product
+    // fungsi untuk supplier & product (add supplier to product)
     public void addSupplier(Supplier supplier, Long productId) {
         Product product = findOne(productId);
-
         if (product == null) {
-            throw new RuntimeException("Product not found with id: " + productId);
+            throw new RuntimeException("Product with id " + productId + " not found");
         }
 
         product.getSuppliers().add(supplier);

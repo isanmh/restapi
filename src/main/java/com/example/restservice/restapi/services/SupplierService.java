@@ -1,5 +1,7 @@
 package com.example.restservice.restapi.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,11 @@ public class SupplierService {
     }
 
     public Supplier findOne(Long id) {
-        return supplierRepo.findById(id).orElse(null);
+        Optional<Supplier> supplier = supplierRepo.findById(id);
+        if (!supplier.isPresent()) {
+            throw new RuntimeException("Supplier with id " + id + " not found");
+        }
+        return supplier.get();
     }
 
     public void delete(Long id) {
