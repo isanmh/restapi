@@ -1,5 +1,7 @@
 package com.example.restservice.restapi.controllers;
 
+import java.util.Arrays;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -94,4 +96,15 @@ public class CategoryController {
     }
 
     // save batch
+    @PostMapping("/add-batch")
+    public ResponseEntity<ResponseData<Iterable<Category>>> createBatch(@RequestBody Category[] categories) {
+
+        ResponseData<Iterable<Category>> responseData = new ResponseData<>();
+
+        responseData.setStatus(true);
+        responseData.getMessages().add("Categories Batch created successfully");
+        responseData.setData(categoryService.saveBatch(Arrays.asList(categories)));
+
+        return ResponseEntity.ok(responseData);
+    }
 }
