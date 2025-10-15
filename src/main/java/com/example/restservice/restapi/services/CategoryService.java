@@ -53,4 +53,9 @@ public class CategoryService {
         return categoryRepo.saveAll(categories);
     }
 
+    // pagable category
+    public Iterable<Category> findAllPage(Pageable pageable) {
+        return categoryRepo.findAll(pageable);
+    }
+
 }

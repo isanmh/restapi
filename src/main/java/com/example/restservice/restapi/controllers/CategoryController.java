@@ -4,7 +4,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,6 +43,9 @@ public class CategoryController {
         }
 
         // model mapper
+        // Category category = new Category();
+        // category.setName(categoryData.getName());
+
         var category = modelMapper.map(categoryData, Category.class);
 
         responseData.setStatus(true);
@@ -48,4 +54,39 @@ public class CategoryController {
         return ResponseEntity.ok(responseData);
     }
 
+    // get all categories
+    @GetMapping
+    public Iterable<Category> findAll() {
+        return categoryService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Category findOne(@PathVariable("id") Long id) {
+        return categoryService.findOne(id);
+    }
+
+    @PutMapping
+    public ResponseEntity<ResponseData<Category>> update(@Valid @RequestBody Category category, Errors errors) {
+        ResponseData<Category> responseData = new ResponseData<>();
+
+        if (errors.hasErrors()) {
+            for (var err : errors.getAllErrors()) {
+                responseData.getMessages().add(err.getDefaultMessage());
+            }
+            responseData.setStatus(false);
+            responseData.setData(null);
+            return ResponseEntity.badRequest().body(responseData);
+        }
+
+        var updatedCategory = modelMapper.map(category, Category.class);
+
+        responseData.setStatus(true);
+        responseData.getMessages().add("Category updated successfully");
+        responseData.setData(categoryService.save(updatedCategory));
+        return ResponseEntity.ok(responseData);
+    }
+
+    // pagable category
+
+    // save batch
 }
