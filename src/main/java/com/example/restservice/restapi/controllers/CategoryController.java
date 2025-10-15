@@ -2,6 +2,7 @@ package com.example.restservice.restapi.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -87,6 +88,10 @@ public class CategoryController {
     }
 
     // pagable category
+    @GetMapping("/{page}/{size}")
+    public Iterable<Category> findAllPage(@PathVariable("page") int page, @PathVariable("size") int size) {
+        return categoryService.findAllPage(PageRequest.of(page, size));
+    }
 
     // save batch
 }
