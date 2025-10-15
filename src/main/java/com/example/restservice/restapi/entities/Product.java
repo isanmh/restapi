@@ -1,12 +1,16 @@
 package com.example.restservice.restapi.entities;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
@@ -38,5 +42,11 @@ public class Product implements Serializable {
     // Relasi dengan Category (Many-to-One)
     @ManyToOne
     private Category category;
+
+    // Relasi dengan Supplier (Many-to-Many)
+    @ManyToMany
+    // untuk membuat table view relasi many to many
+    @JoinTable(name = "product_suppliers", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "supplier_id"))
+    private Set<Supplier> suppliers;
 
 }

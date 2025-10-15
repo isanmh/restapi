@@ -91,4 +91,6 @@ public class ProductController {
         return ResponseEntity.status(200).body(responseData);
     }
 
+    // add supplier to product
+
 }

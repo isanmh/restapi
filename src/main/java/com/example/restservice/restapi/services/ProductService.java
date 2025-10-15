@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.restservice.restapi.entities.Product;
+import com.example.restservice.restapi.entities.Supplier;
 import com.example.restservice.restapi.repositories.ProductRepo;
 
 import jakarta.transaction.Transactional;
@@ -39,4 +40,15 @@ public class ProductService {
         productRepo.deleteById(id);
     }
 
+    // add supplier to product
+    public void addSupplier(Supplier supplier, Long productId) {
+        Product product = findOne(productId);
+
+        if (product == null) {
+            throw new RuntimeException("Product not found with id: " + productId);
+        }
+
+        product.getSuppliers().add(supplier);
+        save(product);
+    }
 }
