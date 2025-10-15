@@ -5,6 +5,8 @@ import java.util.Arrays;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.restservice.restapi.dto.CategoryData;
 import com.example.restservice.restapi.dto.ResponseData;
+import com.example.restservice.restapi.dto.SearchData;
 import com.example.restservice.restapi.entities.Category;
 import com.example.restservice.restapi.services.CategoryService;
 
@@ -106,5 +109,20 @@ public class CategoryController {
         responseData.setData(categoryService.saveBatch(Arrays.asList(categories)));
 
         return ResponseEntity.ok(responseData);
+    }
+
+    // serach by name with pagination
+    @PostMapping("/search/{page}/{size}/{sort}")
+    public Iterable<Category> findByName(@RequestBody SearchData searchData, @PathVariable("page") int page,
+            @PathVariable("size") int size,
+            @PathVariable("sort") String sort) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id"));
+        // sorting data
+        if (sort.equalsIgnoreCase("desc")) {
+            pageable = PageRequest.of(page, size, Sort.by("id").descending());
+        }
+        return categoryService.findByName(searchData.getSearchKey(), pageable);
+
     }
 }

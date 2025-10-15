@@ -9,6 +9,7 @@ import com.example.restservice.restapi.entities.Category;
 
 public interface CategoryRepo extends PagingAndSortingRepository<Category, Long>, CrudRepository<Category, Long> {
 
+    // Query Drived Method
     Page<Category> findByNameContains(String name, Pageable pageable);
 
     Page<Category> findAll(Pageable pageable);
