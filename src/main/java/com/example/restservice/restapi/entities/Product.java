@@ -21,15 +21,19 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Data
+// @Getter
+// @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "products")
-// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-// property = "id")
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Product implements Serializable {
 
     @Id

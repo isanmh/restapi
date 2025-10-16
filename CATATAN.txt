@@ -78,3 +78,10 @@ configure model mapper
 - Java › Inlay Hints › Parameter Names :
     None -> All
   ctrl + ,  search "inline hints"
+
+
+SSID : inixindo hitam
+pass : Learning25
+
+putih : 
+hitam : Learning25 / Learning2025
