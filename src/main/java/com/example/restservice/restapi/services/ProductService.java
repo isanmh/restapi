@@ -1,5 +1,6 @@
 package com.example.restservice.restapi.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,7 @@ public class ProductService {
     }
 
     // find product by supplierid
-    public Iterable<Product> findBySupplierId(Long supplierId) {
+    public List<Product> findBySupplierId(Long supplierId) {
         return productRepo.findBySupplierId(supplierId);
     }
 

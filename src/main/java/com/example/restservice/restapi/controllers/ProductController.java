@@ -1,5 +1,7 @@
 package com.example.restservice.restapi.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -125,4 +127,27 @@ public class ProductController {
         responseData.setData(productService.findByName(searchData.getSearchKey()));
         return ResponseEntity.ok(responseData);
     }
+
+    // Name Like
+    @PostMapping("/search/name-like")
+    public ResponseEntity<ResponseData<Iterable<Product>>> findByNameLike(@RequestBody SearchData searchData) {
+        ResponseData<Iterable<Product>> responseData = new ResponseData<>();
+        // jika search key kosong
+        if (searchData.getSearchKey() == null || searchData.getSearchKey().isEmpty()) {
+            responseData.setStatus(false);
+            responseData.getMessages().add("Search key is required");
+            responseData.setData(null);
+            return ResponseEntity.badRequest().body(responseData);
+        }
+
+        responseData.setData(productService.findByNameLike(searchData.getSearchKey()));
+        return ResponseEntity.ok(responseData);
+    }
+
+    // find by supplier id
+    @GetMapping("/search/supplierId/{supplierId}")
+    public List<Product> findBySupplierId(@PathVariable("supplierId") Long supplierId) {
+        return productService.findBySupplierId(supplierId);
+    }
+
 }
