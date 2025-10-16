@@ -104,3 +104,23 @@ Cara install Spring Doc OpenAPI di Spring Boot :
 # spring doc openapi
 springdoc.api-docs.path=/v3/api-docs
 springdoc.swagger-ui.path=/swagger-ui.html
+
+## Docker Compose 
+Docker adalah platform yang memungkinkan Anda untuk mengemas aplikasi dan semua dependensinya ke dalam sebuah kontainer yang dapat dijalankan di mana saja. Docker Compose adalah alat yang digunakan untuk mendefinisikan dan menjalankan aplikasi multi-kontainer Docker.
+1. Install Docker Desktop :
+  check docker :
+  docker --version
+  docker compose version
+2. Buat file docker-compose.yml di root project :
+cara jalankan docker compose :
+- docker compose -v up -d (-v untuk melihat prosesnya -d untuk menjalankan di background)
+
+- docker-compose up -d 
+- docker compose up -d 
+
+lihat compose yang berjalan :
+- docker ps
+- docker compose ps (ps : process status)
+
+menghentikan compose :
+- docker compose down
