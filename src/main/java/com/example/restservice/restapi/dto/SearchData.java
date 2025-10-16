@@ -6,4 +6,5 @@ import lombok.Data;
 public class SearchData {
 
     private String searchKey;
+    private String searchKey2;
 }

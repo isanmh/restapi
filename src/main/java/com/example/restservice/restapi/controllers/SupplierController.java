@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.restservice.restapi.dto.ResponseData;
+import com.example.restservice.restapi.dto.SearchData;
 import com.example.restservice.restapi.dto.SupplierData;
 import com.example.restservice.restapi.entities.Supplier;
 import com.example.restservice.restapi.services.SupplierService;
@@ -64,5 +65,21 @@ public class SupplierController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id) {
         supplierService.delete(id);
+    }
+
+    // search
+    @PostMapping("/search/byEmail")
+    public Supplier findByEmail(@RequestBody SearchData searchData) {
+        return supplierService.findByEmail(searchData.getSearchKey());
+    }
+
+    @PostMapping("/search/byName")
+    public Iterable<Supplier> findByNameContains(@RequestBody SearchData searchData) {
+        return supplierService.findByNameContains(searchData.getSearchKey());
+    }
+
+    @PostMapping("/search/byNameOrEmail")
+    public Iterable<Supplier> findByNameOrEmail(@RequestBody SearchData searchData) {
+        return supplierService.findByNameOrEmail(searchData.getSearchKey(), searchData.getSearchKey2());
     }
 }

@@ -34,4 +34,17 @@ public class SupplierService {
         supplierRepo.deleteById(id);
     }
 
+    // Query Drived Method JPA
+    public Supplier findByEmail(String name) {
+        return supplierRepo.findByEmail(name);
+    }
+
+    public Iterable<Supplier> findByNameContains(String name) {
+        return supplierRepo.findByNameContainsOrderByIdDesc(name);
+    }
+
+    public Iterable<Supplier> findByNameOrEmail(String name, String email) {
+        return supplierRepo.findByNameContainsOrEmailContains(name, email);
+    }
+
 }
