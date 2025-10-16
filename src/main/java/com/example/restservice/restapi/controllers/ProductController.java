@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.restservice.restapi.dto.ResponseData;
+import com.example.restservice.restapi.dto.SearchData;
 import com.example.restservice.restapi.entities.Product;
 import com.example.restservice.restapi.entities.Supplier;
 import com.example.restservice.restapi.services.ProductService;
@@ -106,6 +107,22 @@ public class ProductController {
         responseData.setStatus(true);
         responseData.getMessages().add("Supplier added to product successfully");
         responseData.setData(productService.findOne(productId));
+        return ResponseEntity.ok(responseData);
+    }
+
+    // custom query find by name
+    @PostMapping("/search/name")
+    public ResponseEntity<ResponseData<Iterable<Product>>> findByName(@RequestBody SearchData searchData) {
+        ResponseData<Iterable<Product>> responseData = new ResponseData<>();
+        // jika search key kosong
+        if (searchData.getSearchKey() == null || searchData.getSearchKey().isEmpty()) {
+            responseData.setStatus(false);
+            responseData.getMessages().add("Search key is required");
+            responseData.setData(null);
+            return ResponseEntity.badRequest().body(responseData);
+        }
+
+        responseData.setData(productService.findByName(searchData.getSearchKey()));
         return ResponseEntity.ok(responseData);
     }
 }

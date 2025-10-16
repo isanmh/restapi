@@ -50,4 +50,20 @@ public class ProductService {
         product.getSuppliers().add(supplier);
         save(product);
     }
+
+    // find by name
+    public Iterable<Product> findByName(String name) {
+        return productRepo.findByName(name);
+    }
+
+    // find by like %name%
+    public Iterable<Product> findByNameLike(String name) {
+        return productRepo.findByNameLike(name);
+    }
+
+    // find product by supplierid
+    public Iterable<Product> findBySupplierId(Long supplierId) {
+        return productRepo.findBySupplierId(supplierId);
+    }
+
 }
