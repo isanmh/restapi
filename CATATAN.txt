@@ -85,3 +85,22 @@ pass : Learning25
 
 putih : 
 hitam : Learning25 / Learning2025
+
+## Dokumentasi API :
+- depedency : springdoc-openapi-ui
+- http://localhost:8080/swagger-ui.html
+- http://localhost:8080/v3/api-docs
+
+Cara install Spring Doc OpenAPI di Spring Boot :
+1. Tambahkan dependensi Spring Doc OpenAPI ke dalam file `pom.xml` proyek Spring Boot Anda. Berikut adalah contoh dependensi yang perlu ditambahkan:
+```xml
+2. pom.xml
+<dependency>
+    <groupId>org.springdoc</groupId>
+    <artifactId>springdoc-openapi-ui</artifactId>
+    <version>1.6.14</version>
+</dependency>
+3. tambah config di appllication.properties :
+# spring doc openapi
+springdoc.api-docs.path=/v3/api-docs
+springdoc.swagger-ui.path=/swagger-ui.html
